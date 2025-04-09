@@ -27,3 +27,15 @@ function loadVideo(videoId) {
 function toggleFontSize() {
   document.body.classList.toggle("large-font");
 }
+
+function playVideo() {
+  if (player && player.playVideo) {
+    player.playVideo();
+  }
+}
+
+function pauseVideo() {
+  if (player && player.pauseVideo) {
+    player.pauseVideo();
+  }
+}
