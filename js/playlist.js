@@ -60,7 +60,8 @@ function renderVideoList(videos) {
   });
 
   if (videos.length > 0) {
-    loadVideo(videos[0].videoId); // Autoplay first
+loadVideo("M7lc1UVf-VE"); // YouTube's official API demo video
+
   }
 }
 
