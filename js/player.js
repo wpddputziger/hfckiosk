@@ -12,6 +12,13 @@ function onYouTubeIframeAPIReady() {
       controls: 0,
       modestbranding: 1,
       rel: 0
+      #player {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  background: #000;
+  flex-shrink: 0;
+}
+
     },
     events: {
       onReady: () => console.log("📺 YouTube player ready"),
