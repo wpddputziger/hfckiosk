@@ -7,40 +7,43 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+
   <header>
     <img src="assets/logo.svg" alt="HFC Logo" class="logo" />
+    <div class="playlist-header">
+      <p class="playlist-label">Please Select a Playlist</p>
+      <div class="playlist-scroll-container">
+        <button class="scroll-arrow left" onclick="scrollPlaylists('left')">&#9664;</button>
+        <div id="playlist-selector" class="playlist-buttons"></div>
+        <button class="scroll-arrow right" onclick="scrollPlaylists('right')">&#9654;</button>
+      </div>
+    </div>
   </header>
 
   <main>
- <div class="left-panel">
-  <div id="player"></div>
-</div>
-
-<div class="right-panel">
-  <div id="playlist-selector"></div>
-  <ul id="video-list"></ul>
-
-  <div class="utility-buttons">
-    <button onclick="location.reload()">Reload</button>
-    <button onclick="toggleFontSize()">Font Size</button>
-    <button onclick="playVideo()">▶ Play</button>
-    <button onclick="pauseVideo()">⏸ Pause</button>
-  </div>
-</div>
+    <div class="left-panel">
+      <div id="player"></div>
+    </div>
 
     <div class="right-panel">
-      <div id="playlist-selector"></div>
-      <ul id="video-list"></ul>
+      <div class="playlist-box">
+        <ul id="video-list"></ul>
+
+        <div class="utility-buttons">
+          <button onclick="skipVideo(-1)">⏮ Back</button>
+          <button id="togglePlayPause" onclick="togglePlayPause()">▶</button>
+          <button onclick="skipVideo(1)">⏭ Skip</button>
+        </div>
+      </div>
     </div>
   </main>
 
   <footer style="text-align:center; padding: 1rem; font-size: 0.9rem;">
-    HFC Kiosk • Build 2024.04.09.1
+    HFC Kiosk • Build 2024.04.09.2
   </footer>
 
   <script>
     const YT_API_KEY = atob("QUl6YVN5QlhPblBiOE1LeEJFMXBUNlNZdmRRZFhfODczNTBOazln");
-    console.log("✅ YouTube API key decoded and stored.");
   </script>
 
   <script src="https://www.youtube.com/iframe_api"></script>
