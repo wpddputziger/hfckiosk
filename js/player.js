@@ -1,3 +1,4 @@
+// js/player.js
 let player;
 let currentVideoIndex = 0;
 let currentVideoList = [];
@@ -36,7 +37,8 @@ function onPlayerStateChange(event) {
   }
 }
 
-function togglePlayPause() {
+// ⬇️ Expose globally for use in HTML inline onclicks
+window.togglePlayPause = function () {
   if (!player) return;
   const state = player.getPlayerState();
   if (state === YT.PlayerState.PLAYING) {
@@ -44,12 +46,12 @@ function togglePlayPause() {
   } else {
     player.playVideo();
   }
-}
+};
 
-function skipVideo(direction) {
+window.skipVideo = function (direction) {
   const newIndex = currentVideoIndex + direction;
   if (newIndex >= 0 && newIndex < currentVideoList.length) {
     currentVideoIndex = newIndex;
     loadVideo(currentVideoList[newIndex].videoId, newIndex);
   }
-}
+};
