@@ -1,21 +1,40 @@
 // js/playlist.js
+console.log("📥 playlist.js loaded");
 
 async function fetchPlaylists() {
-  const res = await fetch("playlist.json");
-  const playlists = await res.json();
-  return playlists.filter(p => p.visible !== false);
+  try {
+    const res = await fetch("playlist.json");
+    const playlists = await res.json();
+    const visiblePlaylists = playlists.filter(p => p.visible !== false);
+    console.log("📂 Visible playlists:", visiblePlaylists);
+    return visiblePlaylists;
+  } catch (err) {
+    console.error("❌ Error loading playlist.json", err);
+    return [];
+  }
 }
 
 async function fetchVideosFromPlaylist(playlistId) {
-  const API_KEY = atob("QUl6YVN5QlhPblBiOE1LeEJFMXBUNlNZdmRRZFhfODczNTBOazln");
-  const endpoint = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${API_KEY}`;
-  const res = await fetch(endpoint);
-  const data = await res.json();
+  console.log("▶️ Fetching videos from playlist:", playlistId);
+  const API_KEY = YT_API_KEY; // Defined in index.html from base64
 
-  return data.items.map(item => ({
-    title: item.snippet.title,
-    videoId: item.snippet.resourceId.videoId
-  }));
+  const endpoint = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${API_KEY}`;
+
+  try {
+    const res = await fetch(endpoint);
+    const data = await res.json();
+
+    const videos = data.items.map(item => ({
+      title: item.snippet.title,
+      videoId: item.snippet.resourceId.videoId
+    }));
+
+    console.log("🎞️ Loaded videos:", videos);
+    return videos;
+  } catch (err) {
+    console.error("❌ Failed to fetch videos", err);
+    return [];
+  }
 }
 
 function createPlaylistButtons(playlists) {
@@ -40,9 +59,8 @@ function renderVideoList(videos) {
     list.appendChild(li);
   });
 
-  // Auto-play first video
   if (videos.length > 0) {
-    loadVideo(videos[0].videoId);
+    loadVideo(videos[0].videoId); // Autoplay first
   }
 }
 
@@ -51,9 +69,14 @@ async function loadPlaylist(playlistId) {
   renderVideoList(videos);
 }
 
-// Initialize
+// On page load
 (async () => {
   const playlists = await fetchPlaylists();
+  if (playlists.length === 0) {
+    document.getElementById("video-list").innerHTML = "<li>No playlists available.</li>";
+    return;
+  }
+
   createPlaylistButtons(playlists);
 
   const defaultPlaylist = playlists.find(p => p.default) || playlists[0];
