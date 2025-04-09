@@ -1,45 +1,44 @@
-// js/playlist.js
 console.log("📥 playlist.js loaded");
 
 async function fetchPlaylists() {
-  try {
-    const res = await fetch("playlist.json");
-    const playlists = await res.json();
-    const visiblePlaylists = playlists.filter(p => p.visible !== false);
-    console.log("📂 Visible playlists:", visiblePlaylists);
-    return visiblePlaylists;
-  } catch (err) {
-    console.error("❌ Error loading playlist.json", err);
-    return [];
-  }
+  const res = await fetch("playlist.json");
+  const playlists = await res.json();
+  return playlists.filter(p => p.visible !== false);
 }
 
 async function fetchVideosFromPlaylist(playlistId) {
-  console.log("▶️ Fetching videos from playlist:", playlistId);
-  const API_KEY = YT_API_KEY; // Defined in index.html from base64
-
+  const API_KEY = YT_API_KEY;
   const endpoint = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${API_KEY}`;
+  const res = await fetch(endpoint);
+  const data = await res.json();
 
-  try {
-    const res = await fetch(endpoint);
-    const data = await res.json();
+  return data.items.map(item => ({
+    title: item.snippet.title,
+    videoId: item.snippet.resourceId.videoId
+  }));
+}
 
-    const videos = data.items.map(item => ({
-      title: item.snippet.title,
-      videoId: item.snippet.resourceId.videoId
-    }));
+function renderVideoList(videos) {
+  const list = document.getElementById("video-list");
+  list.innerHTML = "";
 
-    console.log("🎞️ Loaded videos:", videos);
-    return videos;
-  } catch (err) {
-    console.error("❌ Failed to fetch videos", err);
-    return [];
+  videos.forEach((video, index) => {
+    const li = document.createElement("li");
+    li.textContent = video.title;
+    li.onclick = () => loadVideo(video.videoId, index);
+    list.appendChild(li);
+  });
+
+  currentVideoList = videos;
+  if (videos.length > 0) {
+    loadVideo(videos[0].videoId, 0);
   }
 }
 
 function createPlaylistButtons(playlists) {
   const container = document.getElementById("playlist-selector");
   container.innerHTML = "";
+
   playlists.forEach(playlist => {
     const btn = document.createElement("button");
     btn.textContent = playlist.title;
@@ -48,21 +47,13 @@ function createPlaylistButtons(playlists) {
   });
 }
 
-function renderVideoList(videos) {
-  const list = document.getElementById("video-list");
-  list.innerHTML = "";
-
-  videos.forEach(video => {
-    const li = document.createElement("li");
-    li.textContent = video.title;
-    li.onclick = () => loadVideo(video.videoId);
-    list.appendChild(li);
+function scrollPlaylists(direction) {
+  const container = document.querySelector(".playlist-buttons");
+  const scrollAmount = 150;
+  container.scrollBy({
+    left: direction === "left" ? -scrollAmount : scrollAmount,
+    behavior: "smooth"
   });
-
-  if (videos.length > 0) {
-loadVideo("M7lc1UVf-VE"); // YouTube's official API demo video
-
-  }
 }
 
 async function loadPlaylist(playlistId) {
@@ -70,14 +61,9 @@ async function loadPlaylist(playlistId) {
   renderVideoList(videos);
 }
 
-// On page load
+// Init
 (async () => {
   const playlists = await fetchPlaylists();
-  if (playlists.length === 0) {
-    document.getElementById("video-list").innerHTML = "<li>No playlists available.</li>";
-    return;
-  }
-
   createPlaylistButtons(playlists);
 
   const defaultPlaylist = playlists.find(p => p.default) || playlists[0];
