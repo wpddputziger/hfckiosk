@@ -15,7 +15,7 @@ async function fetchVideosFromPlaylist(playlistId) {
   return data.items.map(item => ({
     title: item.snippet.title,
     videoId: item.snippet.resourceId.videoId,
-        thumbnail: item.snippet.thumbnails.medium.url
+    thumbnail: item.snippet.thumbnails.medium.url
   }));
 }
 
@@ -48,7 +48,6 @@ function renderVideoList(videos) {
   }
 }
 
-
 function createPlaylistButtons(playlists) {
   const container = document.getElementById("playlist-selector");
   container.innerHTML = "";
@@ -58,15 +57,6 @@ function createPlaylistButtons(playlists) {
     btn.textContent = playlist.title;
     btn.onclick = () => loadPlaylist(playlist.id);
     container.appendChild(btn);
-  });
-}
-
-function scrollPlaylists(direction) {
-  const container = document.querySelector(".playlist-buttons");
-  const scrollAmount = 150;
-  container.scrollBy({
-    left: direction === "left" ? -scrollAmount : scrollAmount,
-    behavior: "smooth"
   });
 }
 
