@@ -1,19 +1,28 @@
 /* style.css */
 
+:root {
+  --teal: #0099A8;
+  --green: #789904;
+  --red: #C10230;
+  --gold: #DB8F27;
+  --gray-bg: #606261;
+  --white: #ffffff;
+}
+
 body {
   font-family: system-ui, sans-serif;
   margin: 0;
   padding: 0;
-  background: #ffffff;
+  background: var(--white);
   color: #333;
   font-size: 16px;
   line-height: 1.5;
 }
 
 header {
-  background: #b30000;
+  background: var(--teal);
   padding: 1rem;
-  text-align: center;
+  text-align: left;
 }
 
 .logo {
@@ -28,7 +37,10 @@ main {
   gap: 1rem;
 }
 
-.left-panel,
+.left-panel {
+  width: 100%;
+}
+
 .right-panel {
   width: 100%;
 }
@@ -39,18 +51,19 @@ main {
   background: #000;
 }
 
+/* MOVED: utility buttons go under playlist list */
 .utility-buttons {
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .utility-buttons button {
-  flex: 1;
-  padding: 0.75rem;
+  padding: 0.6rem 1rem;
   font-size: 1rem;
-  background: #444;
+  background: var(--gray-bg);
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -93,16 +106,19 @@ main {
   font-size: 20px;
 }
 
-/* Larger screens (TV mode or landscape iPad) */
+/* Larger screens (iPad landscape / TV display) */
 @media (min-width: 768px) {
   main {
     flex-direction: row;
     justify-content: space-between;
   }
 
-  .left-panel,
+  .left-panel {
+    width: 65%;
+  }
+
   .right-panel {
-    width: 48%;
+    width: 32%;
   }
 
   #video-list li {
