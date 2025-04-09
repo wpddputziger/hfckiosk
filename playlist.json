@@ -1,0 +1,20 @@
+[
+  {
+    "id": "PLRdkgOpCgKLCHW0LepxgvtZhCPAKpA_ph",
+    "title": "Mobility & Flexibility",
+    "visible": true,
+    "default": true
+  },
+  {
+    "id": "PLRdkgOpCgKLAMNCxMO2C1_UqUJWOxhfFG",
+    "title": "Strength & Core",
+    "visible": true,
+    "default": false
+  },
+  {
+    "id": "PLRdkgOpCgKLDpQ0yMrjs_UG0YgYkR7vKl",
+    "title": "Low Impact Cardio",
+    "visible": true,
+    "default": false
+  }
+]
