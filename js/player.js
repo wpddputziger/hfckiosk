@@ -1,4 +1,3 @@
-// js/player.js
 let player;
 let currentVideoIndex = 0;
 let currentVideoList = [];
@@ -30,6 +29,7 @@ function loadVideo(videoId, index = 0) {
 
 function onPlayerStateChange(event) {
   const playBtn = document.getElementById("togglePlayPause");
+  if (!playBtn) return;
   if (event.data === YT.PlayerState.PLAYING) {
     playBtn.textContent = "⏸";
   } else {
@@ -37,7 +37,6 @@ function onPlayerStateChange(event) {
   }
 }
 
-// ⬇️ Expose globally for use in HTML inline onclicks
 window.togglePlayPause = function () {
   if (!player) return;
   const state = player.getPlayerState();
