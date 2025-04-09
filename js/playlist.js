@@ -14,7 +14,8 @@ async function fetchVideosFromPlaylist(playlistId) {
 
   return data.items.map(item => ({
     title: item.snippet.title,
-    videoId: item.snippet.resourceId.videoId
+    videoId: item.snippet.resourceId.videoId,
+        thumbnail: item.snippet.thumbnails.medium.url
   }));
 }
 
@@ -24,7 +25,19 @@ function renderVideoList(videos) {
 
   videos.forEach((video, index) => {
     const li = document.createElement("li");
-    li.textContent = video.title;
+    li.className = "video-item";
+
+    const thumb = document.createElement("img");
+    thumb.className = "video-thumb";
+    thumb.src = video.thumbnail;
+    thumb.alt = video.title;
+
+    const title = document.createElement("div");
+    title.className = "video-title";
+    title.textContent = video.title;
+
+    li.appendChild(thumb);
+    li.appendChild(title);
     li.onclick = () => loadVideo(video.videoId, index);
     list.appendChild(li);
   });
@@ -34,6 +47,7 @@ function renderVideoList(videos) {
     loadVideo(videos[0].videoId, 0);
   }
 }
+
 
 function createPlaylistButtons(playlists) {
   const container = document.getElementById("playlist-selector");
