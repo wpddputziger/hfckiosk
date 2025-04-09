@@ -8,24 +8,23 @@
 </head>
 <body>
 
- <header>
-  <div class="header-left">
-    <img src="assets/logo.svg" alt="HFC Logo" class="logo" />
-  </div>
-
-  <div class="header-center">
-    <p class="playlist-label" style="color: white;">Please Select a Playlist</p>
-    <div class="playlist-scroll-container">
-      <div id="playlist-selector" class="playlist-buttons"></div>
+  <header>
+    <div class="header-left">
+      <img src="assets/logo.svg" alt="HFC Logo" class="logo" />
     </div>
-  </div>
 
-  <div class="header-right">
-    <button onclick="toggleFontSize()">A+</button>
-    <button onclick="location.reload()">⟳</button>
-  </div>
-</header>
+    <div class="header-center">
+      <p class="playlist-label">Please Select a Playlist</p>
+      <div class="playlist-scroll-container">
+        <div id="playlist-selector" class="playlist-buttons"></div>
+      </div>
+    </div>
 
+    <div class="header-right">
+      <button onclick="toggleFontSize()">A+</button>
+      <button onclick="location.reload()">⟳</button>
+    </div>
+  </header>
 
   <main>
     <div class="left-panel">
@@ -35,7 +34,6 @@
     <div class="right-panel">
       <div class="playlist-box">
         <ul id="video-list"></ul>
-
         <div class="utility-buttons">
           <button onclick="skipVideo(-1)">⏮ Back</button>
           <button id="togglePlayPause" onclick="togglePlayPause()">▶</button>
@@ -46,7 +44,7 @@
   </main>
 
   <footer style="text-align:center; padding: 1rem; font-size: 0.9rem;">
-    HFC Kiosk • Build 2024.04.09.2
+    HFC Kiosk • Build 2024.04.09.3
   </footer>
 
   <script>
