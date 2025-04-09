@@ -12,17 +12,21 @@
   </header>
 
   <main>
-    <div class="left-panel">
-      <div id="player"></div>
-      <div class="utility-buttons">
-        <button onclick="location.reload()">Reload</button>
-        <button onclick="toggleFontSize()">Font Size</button>
-          <button onclick="location.reload()">Reload</button>
-  <button onclick="toggleFontSize()">Font Size</button>
-  <button onclick="playVideo()">▶ Play</button>
-  <button onclick="pauseVideo()">⏸ Pause</button>
-      </div>
-    </div>
+ <div class="left-panel">
+  <div id="player"></div>
+</div>
+
+<div class="right-panel">
+  <div id="playlist-selector"></div>
+  <ul id="video-list"></ul>
+
+  <div class="utility-buttons">
+    <button onclick="location.reload()">Reload</button>
+    <button onclick="toggleFontSize()">Font Size</button>
+    <button onclick="playVideo()">▶ Play</button>
+    <button onclick="pauseVideo()">⏸ Pause</button>
+  </div>
+</div>
 
     <div class="right-panel">
       <div id="playlist-selector"></div>
