@@ -1,41 +1,16 @@
-// js/player.js
-let player;
-
 function onYouTubeIframeAPIReady() {
   player = new YT.Player("player", {
     height: "390",
     width: "640",
-    videoId: "", // start empty
+    videoId: "",
     playerVars: {
-      autoplay: 1,
+      autoplay: 0, // ⛔ Autoplay off by default
       controls: 0,
       modestbranding: 1,
       rel: 0
     },
     events: {
-      onReady: (e) => e.target.playVideo()
+      onReady: (e) => console.log("📺 YouTube player ready")
     }
   });
-}
-
-function loadVideo(videoId) {
-  if (player && player.loadVideoById) {
-    player.loadVideoById(videoId);
-  }
-}
-
-function toggleFontSize() {
-  document.body.classList.toggle("large-font");
-}
-
-function playVideo() {
-  if (player && player.playVideo) {
-    player.playVideo();
-  }
-}
-
-function pauseVideo() {
-  if (player && player.pauseVideo) {
-    player.pauseVideo();
-  }
 }
